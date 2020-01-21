@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="style.css" />
-    <title>ToDo List</title>
-  </head>
-  <body></body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Just To-Do It</title>
+</head>
+
+<body>
+  <h1>Just To-Do It</h1>
+  <main>
+    <div id="projects">
+      <form>
+        Project name:
+        <input type="text" placeholder="Enter project name" class="new-project-name">
+        <button type="submit" class="new-project-submit submit">check</button>
+      </form>
+      <div id="project-list">placeholder</div>
+    </div>
+    <div id="tasks">
+      <form>
+        Enter new task:
+        <input type="text" placeholder="Enter task name" class="new-task-name">
+        <button type="submit" class="new-task-submit submit">check</button>
+      </form>
+      <div id="task-list">Placeholder</div>
+    </div>
+  </main>
+</body>
+<script src="main.js"></script>
+
 </html>

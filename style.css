@@ -1,3 +1,23 @@
 * {
   box-sizing: border-box;
 }
+
+ /* Elements  */
+h1 {
+    text-align: center;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    justify-items: center;
+}
+
+/* IDs */
+
+/* Classes */
+
+.textfield {
+    border: thin solid black;
+    width: 200px;
+}
