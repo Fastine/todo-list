@@ -1,0 +1,29 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "- [About](#about)\r - [Getting Started](#getting_started)\r - [Usage](#usage)\r - [Contributing](../CONTRIBUTING.md)",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fastine/todo-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fastine/todo-list/issues"
+  },
+  "homepage": "https://github.com/Fastine/todo-list#readme",
+  "devDependencies": {
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "npm-watch": "^0.6.0"
+  },
+  "main": "webpack.config.js",
+  "keywords": []
+}

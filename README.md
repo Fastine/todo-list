@@ -15,7 +15,7 @@ A project in the JavaScript module of [The Odin Project](http://www.theodinproje
 - Factories, Constuctors & Classes
 - NPM/WebPack
 - ES6 Modules
-- "SOLID" philosophy, "sole responsibility" specifically \
+- "SOLID" philosophy, "sole responsibility" specifically
 
 ## Getting Started <a name = "getting_started"></a>
 
