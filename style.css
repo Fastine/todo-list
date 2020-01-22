@@ -15,9 +15,23 @@ main {
 
 /* IDs */
 
+#projectList {
+    display: flex;
+    flex-direction: column;
+}
+
+#taskList {
+    display: flex;
+    flex-direction: column;
+}
+
 /* Classes */
 
 .textfield {
     border: thin solid black;
     width: 200px;
+}
+
+.hidden {
+    display: none;
 }
