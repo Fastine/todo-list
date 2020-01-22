@@ -1,4 +1,7 @@
-import { Task, Project } from "./classes.js";
+import {
+  Task,
+  Project
+} from "./classes.js";
 
 // App Functions
 export const app = (() => {
@@ -20,6 +23,7 @@ export const app = (() => {
   return {
     newTask,
     projects,
-    newProject
+    newProject,
+    newTask
   };
 })();
