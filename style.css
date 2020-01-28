@@ -1,8 +1,8 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
- /* Elements  */
+/* Elements  */
 h1 {
     text-align: center;
 }
@@ -11,6 +11,11 @@ main {
     display: grid;
     grid-template-columns: 25% 75%;
     justify-items: center;
+}
+
+li {
+    list-style-type: none;
+    text-align: center;
 }
 
 /* IDs */
@@ -34,4 +39,31 @@ main {
 
 .hidden {
     display: none;
+}
+
+.active-project {
+    font-size: 2em;
+}
+
+.btn {
+    border: none;
+    background-color: inherit;
+    padding: 7px 7px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.card-title:after {
+    content: '\02795';
+    /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+/* Psuedo */
+
+li:hover {
+    background-color: lightcyan
 }
