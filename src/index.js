@@ -30,9 +30,10 @@ export const theDOM = (() => {
                 const projectCard = document.createElement("li");
                 projectCard.className = 'project-card';
                 projectCard.setAttribute("project-id", index)
+                projectCard.style.border = `solid thin ${item.color}`
 
                 projectCard.innerHTML =
-                    `<input type="checkbox" class="checkbox"><span class="card-title ${item.color}">${item.name}</span>
+                    `<span class="card-title noselect ${item.color}"><input type="checkbox" class="checkbox">${item.name}</span>
                 <span class="card-description hidden">${item.description} <br>  <button class="btn edit">Edit</button> <button class="btn delete">Delete</button> </span>`;
 
                 projectList.append(projectCard);
@@ -72,11 +73,11 @@ export const theDOM = (() => {
         currentTasks.forEach(function (item, index) {
             const taskCard = document.createElement("li");
             taskCard.className = 'task-card';
-            taskCard.setAttribute("task-id", index)
+            taskCard.setAttribute("task-id", index);
 
             taskCard.innerHTML =
-                `<span class="card-title">${item.name}</span>
-                        <span class="card-description hidden">${item.description}</span>
+                `<span class="card-title noselect"><input type="checkbox" class="checkbox">${item.name}</span>
+                        <span class="card-description hidden">${item.description} <br>  <button class="btn edit">Edit</button> <button class="btn delete">Delete</button> </span>
                         `
             taskList.append(taskCard)
         })
@@ -96,7 +97,7 @@ export const theDOM = (() => {
         const activeProjectID = document.querySelector(`[project-id="${id}"]`)
         activeProjectID.className += ' active-project'
 
-        // Event.target.parentElement.className += ' active-project';  Use this later
+        // Event.currentTarget.parentElement.className += ' active-project';  Use this later
         renderTasks();
     }
 
@@ -114,41 +115,71 @@ export const theDOM = (() => {
         renderTasks();
     }
 
+    const completeItem = function (item) {
+        item.classList.toggle('complete');
+    }
+
     const initializeEventListeners = function () {
         document.getElementById('new-project-submit').addEventListener('click', submitNewProject);
         document.getElementById('new-task-submit').addEventListener('click', submitNewTask);
+        const activeProject = document.querySelector('.active-project');
+        const activeProjectID = activeProject.getAttribute('project-id')
+        const activeProjectDescription = activeProject.querySelector('.card-description')
 
         projectList.addEventListener('click', function (e) {
-            const li = e.target.parentElement;
-            const activeProject = document.querySelector('.active-project');
-
-            // If target isn't active, switches the active project to target
-            if ((e.target == activeProject || e.target.parentElement == activeProject)) {
-                return; //expand function later??
-            } else {
-                activeProject.classList.toggle('active-project');
-                e.target.classList.contains('project-card') == true ? e.target.classList.toggle('active-project') : e.target.parentElement.classList.toggle('active-project');
-                renderTasks();
+            // Checkbox
+            if (e.target.classList.contains('checkbox')) {
+                // Clicking an item's checkbox will set it to complete and strikethrough
+                const thisProjectID = e.target.parentElement.parentElement.getAttribute('project-id');
+                app.projects[thisProjectID].completeProject();
+                completeItem(e.target.parentElement);
+            } // Prevent events in card description area
+            else if (e.target.classList.contains('card-description')) {
+                return;
             }
-            //if (li.classList.contains('project-card') == true) {
-            //     // If card is clicked, it is activated
-            //     console.log(li);
+            // Expand
+            else if (e.target.classList.contains('project-card')) {
+                e.target.classList.toggle('open');
+                e.target.querySelector('.card-description').classList.toggle('hidden');
+            } else if (e.target.classList.contains('card-title')) {
+                e.target.parentElement.classList.toggle('open')
+                e.target.parentElement.querySelector('.card-description').classList.toggle('hidden')
+            } else {
+                console.log(e.target)
+            }
+
+
+            // If currentTarget isn't active, switches the active project to currentTarget
+            // if ((e.currentTarget == activeProject ||
+            //         (e.currentTarget.classList.contains('card-title') && e.currentTarget.parentElement == activeProject))) {
+            //     activeProjectDescription.classList.toggle('hidden');
+            //     activeProject.classList.toggle('open');
+            //     console.log(activeProjectDescription);
+            // } else {
+            //     if (!activeProjectDescription.classList.contains('hidden')) activeProjectDescription.classList.toggle('hidden')
+            //     activeProject.classList.toggle('open');
             //     activeProject.classList.toggle('active-project');
-            //     li.classList.toggle('active-project');
+            //     e.currentTarget.classList.contains('project-card') == true ? e.currentTarget.classList.toggle('active-project') : e.currentTarget.parentElement.classList.toggle('active-project');
             //     renderTasks();
             // }
+
+
         })
+        taskList.addEventListener('click', function (e) {
+            if (e.target.classList.contains('checkbox')) {
+                // Clicking an item's checkbox will set it to complete and strikethrough
+                const thisTaskID = e.target.parentElement.parentElement.getAttribute('task-id');
+                app.projects[activeProjectID].tasks[thisTaskID].completeTask();
+                completeItem(e.target.parentElement);
 
-
-
-
-
-        //   ul.addEventListener('click', function(e) {
-
-        //  if(e.target.className == 'something'){
-        // const li = e.target.parentElement;
-        // ul.dosomething
-        // }})
+            } else if (e.target.classList.contains('task-card')) {
+                e.target.classList.toggle('open');
+                e.target.querySelector('.card-description').classList.toggle('hidden');
+            } else if (e.target.classList.contains('card-title')) {
+                e.target.parentElement.classList.toggle('open')
+                e.target.parentElement.querySelector('.card-description').classList.toggle('hidden')
+            }
+        })
     }
 
     const removeTasks = function () {

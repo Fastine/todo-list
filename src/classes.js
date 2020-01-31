@@ -1,8 +1,13 @@
+import {
+  theDOM
+} from ".";
+
 export class Project {
   constructor(name, color) {
     this.name = name;
     this.color = color;
     this.tasks = [];
+    this.complete = false;
   }
 
   addTask(task) {
@@ -12,6 +17,11 @@ export class Project {
   removeTask(index) {
     this.tasks.splice(index, 1)
   }
+
+  completeProject() {
+    this.complete == false ? this.complete = true : this.complete = false;
+  }
+
 }
 
 export class Task {
@@ -22,6 +32,10 @@ export class Task {
     this.dueDate = dueDate;
     this.priority = priority;
     this.complete = false;
+  }
+
+  completeTask() {
+    this.complete == false ? this.complete = true : this.complete = false;
   }
 
 }

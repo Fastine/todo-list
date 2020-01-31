@@ -1,21 +1,37 @@
 * {
     box-sizing: border-box;
+    --black: #111;
+    --white: #ffffff;
 }
 
 /* Elements  */
 h1 {
     text-align: center;
+    width: auto;
+    font-size: 2.6rem;
+}
+
+body {
+    background-color: var(--white);
+    color: var(--black);
 }
 
 main {
-    display: grid;
-    grid-template-columns: 25% 75%;
+    display: flex;
     justify-items: center;
+    width: auto;
 }
 
 li {
     list-style-type: none;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+ul {
+    padding: 0;
 }
 
 /* IDs */
@@ -41,6 +57,11 @@ li {
     display: none;
 }
 
+.checkbox {
+    float: left;
+
+}
+
 .active-project {
     font-size: 2em;
 }
@@ -53,17 +74,62 @@ li {
     display: inline-block;
 }
 
-.card-title:after {
-    content: '\02795';
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+    supported by Chrome and Opera */
+}
+
+
+
+.task-card span {
+    transition: all 0.7s ease;
+}
+
+.complete {
+    text-decoration-line: line-through;
+}
+
+.card-description {
+    user-select: text;
+}
+
+
+li:after {
+    content: '\203a';
     /* Unicode character for "plus" sign (+) */
-    font-size: 13px;
     color: #777;
     float: right;
-    margin-left: 5px;
+    transform: rotate(90deg);
+    transition: ease .3s transform;
+    pointer-events: none;
 }
+
+li.open:after {
+    transform: rotate(270deg);
+}
+
+/* li.active-project:after { change active project to expanded project
+    transform: rotate(90deg);
+} */
 
 /* Psuedo */
 
 li:hover {
-    background-color: lightcyan
+    background-color: lightgrey;
+
+}
+
+li>*:hover {
+    background-color: lightgrey;
 }
