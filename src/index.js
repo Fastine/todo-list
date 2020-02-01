@@ -33,18 +33,13 @@ export const theDOM = (() => {
                 projectCard.style.border = `solid thin ${item.color}`
 
                 projectCard.innerHTML =
-                    `<span class="card-title noselect ${item.color}"><input type="checkbox" class="checkbox">${item.name}</span>
+                    `<span class="card-title noselect"><input type="checkbox" class="checkbox">${item.name}</span>
                 <span class="card-description hidden">${item.description} <br>  <button class="btn edit">Edit</button> <button class="btn delete">Delete</button> </span>`;
 
                 projectList.append(projectCard);
             }
 
         })
-
-    }
-
-    const renderNewProject = function () {
-        let newProject = app.projects[-1];
 
     }
 
@@ -74,6 +69,7 @@ export const theDOM = (() => {
             const taskCard = document.createElement("li");
             taskCard.className = 'task-card';
             taskCard.setAttribute("task-id", index);
+            taskList.style.backgroundColor = app.projects[`${activeProjectID}`].color;
 
             taskCard.innerHTML =
                 `<span class="card-title noselect"><input type="checkbox" class="checkbox">${item.name}</span>
@@ -85,9 +81,10 @@ export const theDOM = (() => {
 
     const activateProject = function (id) {
         // Deactivate current active project
-        const activeProject = document.querySelector('.active-project');
-        activeProject.classList.remove('active-project');
-        console.log(activeProject)
+        // const activeProject = document.querySelector('.active-project');
+        // activeProject.style.backgroundColor = "white";
+        // activeProject.classList.remove('active-project');
+        // console.log(activeProject)
 
 
         // Clear current tasks
@@ -95,7 +92,8 @@ export const theDOM = (() => {
 
         // Activate new active project and render its tasks
         const activeProjectID = document.querySelector(`[project-id="${id}"]`)
-        activeProjectID.className += ' active-project'
+        activeProjectID.className += ' active-project';
+        activeProjectID.style.backgroundColor = app.projects[id].color;
 
         // Event.currentTarget.parentElement.className += ' active-project';  Use this later
         renderTasks();
@@ -209,9 +207,9 @@ export const theDOM = (() => {
 
 
 
-app.newProject("default");
+app.newProject("default", "#f50707");
 console.log(app.projects[0]);
-app.newProject("Shopping");
+app.newProject("Shopping", "#ffd900");
 console.log(app.projects);
 app.newTask(app.projects[0], "test task 1");
 app.newTask(app.projects[1], "this is it");
@@ -222,6 +220,7 @@ app.newTask(app.projects[1], "this is it");
 
 
 theDOM.renderProjects();
+theDOM.activateProject(0);
 theDOM.renderTasks();
 theDOM.initializeEventListeners();
 
