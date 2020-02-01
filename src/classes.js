@@ -3,9 +3,10 @@ import {
 } from ".";
 
 export class Project {
-  constructor(name, color) {
+  constructor(name, color, description) {
     this.name = name;
     this.color = color;
+    this.description = description;
     this.tasks = [];
     this.complete = false;
   }

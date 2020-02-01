@@ -9,8 +9,8 @@ export const app = (() => {
   let projects = [];
 
   //Create Project
-  const newProject = function (name, color) {
-    name = new Project(name, color);
+  const newProject = function (name, color, description) {
+    name = new Project(name, color, description);
     projects.push(name);
   };
 

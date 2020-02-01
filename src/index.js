@@ -81,9 +81,11 @@ export const theDOM = (() => {
 
     const activateProject = function (id) {
         // Deactivate current active project
-        // const activeProject = document.querySelector('.active-project');
-        // activeProject.style.backgroundColor = "white";
-        // activeProject.classList.remove('active-project');
+        const activeProject = document.querySelector('.active-project');
+        if (activeProject) {
+            activeProject.style.backgroundColor = "white";
+            activeProject.classList.remove('active-project');
+        }
         // console.log(activeProject)
 
 
@@ -102,15 +104,21 @@ export const theDOM = (() => {
     const submitNewProject = function () {
         const projectName = document.getElementById("new-project-name").value;
         console.log(projectName);
-        app.newProject(projectName);
-        renderProjects();
+        if (projectName == '') return; //Prevent blank projects from being created
+        else {
+            app.newProject(projectName);
+            renderProjects();
+        }
     }
 
     const submitNewTask = function () {
         const activeProjectID = document.querySelector('.active-project').getAttribute('project-id');
         const taskName = document.getElementById('new-task-name').value;
-        app.newTask(app.projects[`${activeProjectID}`], taskName);
-        renderTasks();
+        if (taskName == '') return;
+        else {
+            app.newTask(app.projects[`${activeProjectID}`], taskName);
+            renderTasks();
+        }
     }
 
     const completeItem = function (item) {
@@ -137,11 +145,16 @@ export const theDOM = (() => {
             }
             // Expand
             else if (e.target.classList.contains('project-card')) {
-                e.target.classList.toggle('open');
-                e.target.querySelector('.card-description').classList.toggle('hidden');
+                if (e.target.classList.contains('active-project')) {
+                    e.target.classList.toggle('open');
+                    e.target.querySelector('.card-description').classList.toggle('hidden');
+                } else activateProject(e.target.getAttribute('project-id'))
+
             } else if (e.target.classList.contains('card-title')) {
-                e.target.parentElement.classList.toggle('open')
-                e.target.parentElement.querySelector('.card-description').classList.toggle('hidden')
+                if (e.target.parentElement.classList.contains('active-project')) {
+                    e.target.parentElement.classList.toggle('open')
+                    e.target.parentElement.querySelector('.card-description').classList.toggle('hidden')
+                } else activateProject(e.target.parentElement.getAttribute('project-id'))
             } else {
                 console.log(e.target)
             }
@@ -207,12 +220,14 @@ export const theDOM = (() => {
 
 
 
-app.newProject("default", "#f50707");
+app.newProject("Notes", "#f50707", "This folder is for quick notes");
 console.log(app.projects[0]);
 app.newProject("Shopping", "#ffd900");
 console.log(app.projects);
-app.newTask(app.projects[0], "test task 1");
-app.newTask(app.projects[1], "this is it");
+app.newTask(app.projects[0], "Pay rent", "$500");
+app.newTask(app.projects[0], "Dinner at Fongs", "5:00pm");
+app.newTask(app.projects[1], "Mahomes Magic Crunch");
+app.newTask(app.projects[1], "Beer");
 
 
 // app.newTask(app.projects[`${document.getAttribute('project-id')}`])
