@@ -27,7 +27,7 @@ li {
     text-align: center;
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
+
 }
 
 
@@ -119,6 +119,11 @@ form {
 
 .card-description {
     user-select: text;
+    font-size: 1rem;
+}
+
+.active-project>.card-description {
+    font-size: 1.25rem;
 }
 
 
