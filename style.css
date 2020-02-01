@@ -30,16 +30,27 @@ li {
     margin-bottom: 5px;
 }
 
+
 ul {
     padding: 0;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+}
+
 /* IDs */
+
+#projects #tasks {
+    width: auto;
+}
 
 #projectList {
     display: flex;
     flex-direction: column;
 }
+
 
 #taskList {
     display: flex;
@@ -47,6 +58,7 @@ ul {
 }
 
 /* Classes */
+
 
 .textfield {
     border: thin solid black;
@@ -64,14 +76,19 @@ ul {
 
 .active-project {
     font-size: 2em;
+    background-color: attr(color)
 }
 
-.btn {
+.submit {
     border: none;
-    background-color: inherit;
+    background-image: url('./img/nike.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65px;
     padding: 7px 7px;
     cursor: pointer;
     display: inline-block;
+    height: 40px;
 }
 
 .noselect {
@@ -107,7 +124,7 @@ ul {
 
 li:after {
     content: '\203a';
-    /* Unicode character for "plus" sign (+) */
+    /* Unicode character for "plus" sign (>) */
     color: #777;
     float: right;
     transform: rotate(90deg);
@@ -126,10 +143,10 @@ li.open:after {
 /* Psuedo */
 
 li:hover {
-    background-color: lightgrey;
+    border: solid thin black;
 
 }
 
-li>*:hover {
-    background-color: lightgrey;
-}
+/* li>*:hover {
+    border: solid thin black;
+} */
