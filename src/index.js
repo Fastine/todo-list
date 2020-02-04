@@ -131,6 +131,38 @@ export const theDOM = (() => {
         const activeProject = document.querySelector('.active-project');
         const activeProjectID = activeProject.getAttribute('project-id')
         const activeProjectDescription = activeProject.querySelector('.card-description')
+        const modal = document.getElementById('modal');
+        const editProjectForm = document.getElementById('edit-project');
+        const editTaskForm = document.getElementById('edit-task');
+        const modalClose = document.querySelector('.close');
+        const editTaskName = document.getElementById('edit-task-name')
+        const editTaskDescription = document.getElementById('edit-task-description');
+        const editProjectName = document.getElementById('edit-project-name')
+        const editProjectDescription = document.getElementById('edit-project-description');
+
+        window.addEventListener("click", function (e) {
+            if (e.target == modal) {
+                modal.style.display = "none";
+                editProjectForm.classList.toggle('hidden', true)
+                editTaskForm.classList.toggle('hidden', true)
+            };
+        })
+
+        modalClose.addEventListener('click', function () {
+            modal.style.display = "none";
+            editProjectForm.classList.toggle('hidden', true)
+            editTaskForm.classList.toggle('hidden', true)
+        })
+
+        editTaskForm.addEventListener('click', function (e) {
+            // Save button
+            if (e.target.classList.contains('save')) {
+                modal.style.display = "none";
+                editProjectForm.classList.toggle('hidden', true)
+                editTaskForm.classList.toggle('hidden', true)
+
+            }
+        })
 
         projectList.addEventListener('click', function (e) {
             // Checkbox
@@ -143,11 +175,12 @@ export const theDOM = (() => {
             else if (e.target.classList.contains('card-description')) {
                 return;
             }
-            // Expand
+            // Expand project if active
             else if (e.target.classList.contains('project-card')) {
                 if (e.target.classList.contains('active-project')) {
                     e.target.classList.toggle('open');
                     e.target.querySelector('.card-description').classList.toggle('hidden');
+                    // Activate project if not
                 } else activateProject(e.target.getAttribute('project-id'))
 
             } else if (e.target.classList.contains('card-title')) {
@@ -155,42 +188,63 @@ export const theDOM = (() => {
                     e.target.parentElement.classList.toggle('open')
                     e.target.parentElement.querySelector('.card-description').classList.toggle('hidden')
                 } else activateProject(e.target.parentElement.getAttribute('project-id'))
-            } else {
-                console.log(e.target)
+
+                // Edit button
+            } else if (e.target.classList.contains('edit')) {
+                if (e.target.parentElement.parentElement.classList.contains('project-card')) {
+                    const project = app.projects[e.target.parentElement.parentElement.getAttribute('project-id')];
+
+
+                    editProjectName.value = `${project.name}`;
+                    editProjectDescription.value = `${project.description}`;
+
+                    modal.style.display = "block";
+                    editProjectForm.classList.toggle('hidden', false)
+                }
             }
 
-
-            // If currentTarget isn't active, switches the active project to currentTarget
-            // if ((e.currentTarget == activeProject ||
-            //         (e.currentTarget.classList.contains('card-title') && e.currentTarget.parentElement == activeProject))) {
-            //     activeProjectDescription.classList.toggle('hidden');
-            //     activeProject.classList.toggle('open');
-            //     console.log(activeProjectDescription);
-            // } else {
-            //     if (!activeProjectDescription.classList.contains('hidden')) activeProjectDescription.classList.toggle('hidden')
-            //     activeProject.classList.toggle('open');
-            //     activeProject.classList.toggle('active-project');
-            //     e.currentTarget.classList.contains('project-card') == true ? e.currentTarget.classList.toggle('active-project') : e.currentTarget.parentElement.classList.toggle('active-project');
-            //     renderTasks();
-            // }
-
-
         })
+
         taskList.addEventListener('click', function (e) {
+            const thisTaskID = e.target.parentElement.parentElement.getAttribute('task-id');
+            const activeProjectID = document.querySelector('.active-project').getAttribute('project-id');
             if (e.target.classList.contains('checkbox')) {
                 // Clicking an item's checkbox will set it to complete and strikethrough
-                const thisTaskID = e.target.parentElement.parentElement.getAttribute('task-id');
                 app.projects[activeProjectID].tasks[thisTaskID].completeTask();
                 completeItem(e.target.parentElement);
 
+                // Expand task
             } else if (e.target.classList.contains('task-card')) {
                 e.target.classList.toggle('open');
                 e.target.querySelector('.card-description').classList.toggle('hidden');
             } else if (e.target.classList.contains('card-title')) {
                 e.target.parentElement.classList.toggle('open')
                 e.target.parentElement.querySelector('.card-description').classList.toggle('hidden')
+
+                // Edit Button
+            } else if (e.target.classList.contains('edit')) {
+                if (e.target.parentElement.parentElement.classList.contains('task-card')) {
+                    const task = app.projects[activeProjectID].tasks[thisTaskID]
+
+
+
+                    editTaskName.value = `${task.name}`;
+                    editTaskDescription.value = `${task.description}`;
+
+
+                    modal.style.display = "block";
+                    editTaskForm.classList.toggle('hidden', false)
+                }
             }
         })
+
+        document.querySelector("#new-project").addEventListener("submit", function (e) {
+
+            e.preventDefault(); //stop form from submitting
+
+        });
+
+
     }
 
     const removeTasks = function () {
