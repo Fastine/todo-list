@@ -65,6 +65,7 @@ export const theDOM = (() => {
         // Grab currently selected project and render its tasks
         const activeProjectID = document.querySelector('.active-project').getAttribute('project-id');
         const currentTasks = app.projects[`${activeProjectID}`].tasks;
+        console.log(currentTasks)
 
 
         currentTasks.forEach(function (item, index) {
@@ -260,6 +261,17 @@ export const theDOM = (() => {
                     modal.style.display = "block";
                     editProjectForm.classList.toggle('hidden', false)
                 }
+            } else if (e.target.classList.contains('delete')) {
+                if (e.target.parentElement.parentElement.classList.contains('project-card')) {
+                    const projectID = e.target.parentElement.parentElement.getAttribute('project-id');
+                    const project = app.projects[projectID];
+
+                    //Remove from app reference data
+                    app.projects.splice[projectID, 1]
+                    e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+                    activateProject(0);
+
+                }
             }
 
         })
@@ -295,6 +307,12 @@ export const theDOM = (() => {
                     //Showing form
                     modal.style.display = "block";
                     editTaskForm.classList.toggle('hidden', false)
+                }
+            } else if (e.target.classList.contains('delete')) {
+                if (e.target.parentElement.parentElement.classList.contains('task-card')) {
+                    app.projects[activeProjectID].tasks.splice(thisTaskID, 1);
+                    e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+
                 }
             }
         })

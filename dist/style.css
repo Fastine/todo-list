@@ -15,14 +15,16 @@ body {
     background-color: var(--white);
     color: var(--black);
     margin: 0;
+    max-width: 320px;
 }
 
 main {
     display: flex;
     flex-direction: row;
-    justify-items: center;
-    width: 320px;
-    margin: 0;
+}
+
+main>* {
+    flex: 1, 0;
 }
 
 li {
@@ -44,9 +46,7 @@ form {
 
 /* IDs */
 
-#projects #tasks {
-    width: auto;
-}
+#projects #tasks {}
 
 #projectList {
     display: flex;
@@ -139,6 +139,8 @@ form {
     background-repeat: no-repeat;
     background-size: 65px;
     padding: 7px 7px;
+    margin: 1px;
+    border-radius: 5px;
     cursor: pointer;
     display: inline-block;
     height: 40px;
