@@ -11,43 +11,44 @@
 
 <body>
   <h1>Just To-Do It</h1>
+
+  <div class="modal-form" id="modal">
+    <span class="close">&times;</span>
+
+    <form class="form-container hidden" id="edit-project">
+      <h1>Edit Project</h1>
+
+      <label for="title"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="name" id="edit-project-name" required>
+
+      <label for="author"><b>Description</b></label>
+      <textarea rows="3" placeholder="Enter description here..." id="edit-project-description"
+        class="edit-description"></textarea>
+
+      <label for="pages"><b>Color</b></label>
+      <input type="text" placeholder="#hexcode" name="color" id="edit-project-color">
+
+
+      <button type="button" class="btn save"></button>
+    </form>
+
+    <form class="form-container hidden" id="edit-task">
+      <h1>Edit Task</h1>
+
+      <label for="title"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="name" id="edit-task-name" required>
+
+      <label for="author"><b>Description</b></label>
+      <textarea rows="3" placeholder="Enter description here..." id="edit-task-description"
+        class="edit-description"></textarea>
+
+      <button type="button" class="btn save"></button>
+    </form>
+
+
+  </div>
   <main>
 
-    <div class="modal-form" id="modal">
-      <span class="close">&times;</span>
-
-      <form class="form-container hidden" id="edit-project">
-        <h1>Edit Project</h1>
-
-        <label for="title"><b>Name</b></label>
-        <input type="text" placeholder="Enter Name" name="name" id="edit-project-name" required>
-
-        <label for="author"><b>Description</b></label>
-        <textarea rows="3" placeholder="Enter description here..." id="edit-project-description"
-          class="edit-description"></textarea>
-
-        <label for="pages"><b>Color</b></label>
-        <input type="text" placeholder="#hexcode" name="color" id="edit-project-color">
-
-
-        <button type="button" class="btn save"></button>
-      </form>
-
-      <form class="form-container hidden" id="edit-task">
-        <h1>Edit Task</h1>
-
-        <label for="title"><b>Name</b></label>
-        <input type="text" placeholder="Enter Name" name="name" id="edit-task-name" required>
-
-        <label for="author"><b>Description</b></label>
-        <textarea rows="3" placeholder="Enter description here..." id="edit-task-description"
-          class="edit-description"></textarea>
-
-        <button type="button" class="btn save"></button>
-      </form>
-
-
-    </div>
     <div id="projects">
       <form onsubmit="submitNewProject()" id="new-project">
         <input type="text" placeholder="Enter project name" id="new-project-name" class="text-field">

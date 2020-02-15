@@ -14,12 +14,15 @@ h1 {
 body {
     background-color: var(--white);
     color: var(--black);
+    margin: 0;
 }
 
 main {
     display: flex;
+    flex-direction: row;
     justify-items: center;
-    width: auto;
+    width: 320px;
+    margin: 0;
 }
 
 li {

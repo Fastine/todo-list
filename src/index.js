@@ -7,6 +7,8 @@ import {
 } from "./app.js";
 
 
+
+
 // DOM Manipulation
 
 export const theDOM = (() => {
@@ -125,8 +127,33 @@ export const theDOM = (() => {
         item.classList.toggle('complete');
     }
 
+
+    const removeTasks = function () {
+        while (taskList.firstChild) {
+            taskList.removeChild(taskList.firstChild);
+        }
+    }
+
+    const removeProjects = function () {
+        while (projectList.firstChild) {
+            projectList.removeChild(projectList.firstChild);
+        }
+    }
+
+    const updateProject = function (project, id) {
+        const projectCard = document.querySelector(`[project-id="${id}"]`);
+        projectCard.querySelector(".card-title").textContent = project.name;
+        projectCard.querySelector(".card-description").textContent = project.description;
+
+    }
+    const updateTask = function (task, id) {
+        const taskCard = document.querySelector(`[task-id="${id}"]`);
+        taskCard.querySelector(".card-title").textContent = task.name;
+        taskCard.querySelector(".card-description").textContent = task.description;
+
+    }
     const initializeEventListeners = function () {
-        document.getElementById('new-project-submit').addEventListener('click', submitNewProject);
+        document.getElementById('new-project-submit').addEventListener('click', theDOM.submitNewProject);
         document.getElementById('new-task-submit').addEventListener('click', submitNewTask);
         const activeProject = document.querySelector('.active-project');
         const activeProjectID = activeProject.getAttribute('project-id')
@@ -154,12 +181,41 @@ export const theDOM = (() => {
             editTaskForm.classList.toggle('hidden', true)
         })
 
-        editTaskForm.addEventListener('click', function (e) {
+        editProjectForm.addEventListener('click', function (e) {
             // Save button
             if (e.target.classList.contains('save')) {
+                const currentProjectID = e.target.parentElement.getAttribute("edit-project-id");
+                const currentProject = app.projects[currentProjectID]
+                currentProject.editProject(editProjectName.value, editProjectDescription.value);
+                console.log(currentProject);
+
+                //close Modal
                 modal.style.display = "none";
                 editProjectForm.classList.toggle('hidden', true)
                 editTaskForm.classList.toggle('hidden', true)
+
+                updateProject(currentProject, currentProjectID);
+
+            }
+        })
+
+        editTaskForm.addEventListener('click', function (e) {
+            // Save button
+            if (e.target.classList.contains('save')) {
+                const activeProject = document.querySelector('.active-project')
+                const activeProjectID = activeProject.getAttribute('project-id');
+                const thisTaskID = e.target.parentElement.getAttribute("edit-task-id");
+                const currentTask = app.projects[activeProjectID].tasks[thisTaskID]
+
+
+                currentTask.editTask(editTaskName.value, editTaskDescription.value);
+
+                //close Modal
+                modal.style.display = "none";
+                editProjectForm.classList.toggle('hidden', true)
+                editTaskForm.classList.toggle('hidden', true)
+
+                updateTask(currentTask, thisTaskID)
 
             }
         })
@@ -192,8 +248,11 @@ export const theDOM = (() => {
                 // Edit button
             } else if (e.target.classList.contains('edit')) {
                 if (e.target.parentElement.parentElement.classList.contains('project-card')) {
-                    const project = app.projects[e.target.parentElement.parentElement.getAttribute('project-id')];
+                    const projectID = e.target.parentElement.parentElement.getAttribute('project-id')
+                    const project = app.projects[projectID];
 
+                    // To reference the task being edited
+                    editProjectForm.setAttribute("edit-project-id", projectID)
 
                     editProjectName.value = `${project.name}`;
                     editProjectDescription.value = `${project.description}`;
@@ -224,14 +283,16 @@ export const theDOM = (() => {
                 // Edit Button
             } else if (e.target.classList.contains('edit')) {
                 if (e.target.parentElement.parentElement.classList.contains('task-card')) {
-                    const task = app.projects[activeProjectID].tasks[thisTaskID]
+                    const task = app.projects[activeProjectID].tasks[thisTaskID];
 
+                    // To reference the task being edited
+                    editTaskForm.setAttribute("edit-task-id", thisTaskID)
 
-
+                    //Filling in form
                     editTaskName.value = `${task.name}`;
                     editTaskDescription.value = `${task.description}`;
 
-
+                    //Showing form
                     modal.style.display = "block";
                     editTaskForm.classList.toggle('hidden', false)
                 }
@@ -243,20 +304,6 @@ export const theDOM = (() => {
             e.preventDefault(); //stop form from submitting
 
         });
-
-
-    }
-
-    const removeTasks = function () {
-        while (taskList.firstChild) {
-            taskList.removeChild(taskList.firstChild);
-        }
-    }
-
-    const removeProjects = function () {
-        while (projectList.firstChild) {
-            projectList.removeChild(projectList.firstChild);
-        }
     }
 
     return {
@@ -266,9 +313,9 @@ export const theDOM = (() => {
         projectList,
         submitNewProject,
         submitNewTask,
-        initializeEventListeners,
         removeProjects,
-        removeTasks
+        removeTasks,
+        initializeEventListeners
     }
 })();
 

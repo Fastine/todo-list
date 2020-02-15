@@ -23,6 +23,11 @@ export class Project {
     this.complete == false ? this.complete = true : this.complete = false;
   }
 
+  editProject(name, description) {
+    this.name = name;
+    this.description = description
+  }
+
 }
 
 export class Task {
@@ -37,6 +42,11 @@ export class Task {
 
   completeTask() {
     this.complete == false ? this.complete = true : this.complete = false;
+  }
+
+  editTask(name, description) {
+    this.name = name;
+    this.description = description
   }
 
 }
