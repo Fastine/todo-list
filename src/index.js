@@ -32,7 +32,7 @@ export const theDOM = (() => {
                 const projectCard = document.createElement("li");
                 projectCard.className = 'project-card';
                 projectCard.setAttribute("project-id", index)
-                projectCard.style.border = `solid thin ${item.color}`
+                projectCard.style.backgroundColor = `rgb(${item.color}, 55%)`
 
                 projectCard.innerHTML =
                     `<span class="card-title noselect"><input type="checkbox" class="checkbox">${item.name}</span>
@@ -72,7 +72,7 @@ export const theDOM = (() => {
             const taskCard = document.createElement("li");
             taskCard.className = 'task-card';
             taskCard.setAttribute("task-id", index);
-            taskList.style.backgroundColor = app.projects[`${activeProjectID}`].color;
+            taskList.style.backgroundColor = `rgb(${app.projects[activeProjectID].color},100%)`;
 
             taskCard.innerHTML =
                 `<span class="card-title noselect"><input type="checkbox" class="checkbox">${item.name}</span>
@@ -83,10 +83,13 @@ export const theDOM = (() => {
     }
 
     const activateProject = function (id) {
-        // Deactivate current active project
+        const activatingProjectID = document.querySelector(`[project-id="${id}"]`)
         const activeProject = document.querySelector('.active-project');
+
+        // Deactivate current active project
         if (activeProject) {
-            activeProject.style.backgroundColor = "white";
+            const currentActiveProjectID = activeProject.getAttribute('project-id');
+            activeProject.style.backgroundColor = `rgb(${app.projects[currentActiveProjectID].color},55%)`;
             activeProject.classList.remove('active-project');
         }
         // console.log(activeProject)
@@ -96,9 +99,8 @@ export const theDOM = (() => {
         removeTasks();
 
         // Activate new active project and render its tasks
-        const activeProjectID = document.querySelector(`[project-id="${id}"]`)
-        activeProjectID.className += ' active-project';
-        activeProjectID.style.backgroundColor = app.projects[id].color;
+        activatingProjectID.className += ' active-project';
+        activatingProjectID.style.backgroundColor = `rgb(${app.projects[id].color},100%)`;
 
         // Event.currentTarget.parentElement.className += ' active-project';  Use this later
         renderTasks();
@@ -143,14 +145,14 @@ export const theDOM = (() => {
 
     const updateProject = function (project, id) {
         const projectCard = document.querySelector(`[project-id="${id}"]`);
-        projectCard.querySelector(".card-title").textContent = project.name;
-        projectCard.querySelector(".card-description").textContent = project.description;
+        projectCard.querySelector(".card-title").innerHTML = `<input type="checkbox" class="checkbox">${project.name}`;
+        projectCard.querySelector(".card-description").innerHTML = `${project.description}<br>  <button class="btn edit">Edit</button> <button class="btn delete">Delete</button>`;
 
     }
     const updateTask = function (task, id) {
         const taskCard = document.querySelector(`[task-id="${id}"]`);
-        taskCard.querySelector(".card-title").textContent = task.name;
-        taskCard.querySelector(".card-description").textContent = task.description;
+        taskCard.querySelector(".card-title").innerHTML = `<input type="checkbox" class="checkbox">${task.name}`;
+        taskCard.querySelector(".card-description").innerHTML = `${task.description} <br>  <button class="btn edit">Edit</button> <button class="btn delete">Delete</button>`;
 
     }
     const initializeEventListeners = function () {
@@ -339,9 +341,9 @@ export const theDOM = (() => {
 
 
 
-app.newProject("Notes", "#f50707", "This folder is for quick notes");
+app.newProject("Notes", "255,254,170", "This folder is for quick notes");
 console.log(app.projects[0]);
-app.newProject("Shopping", "#ffd900");
+app.newProject("Shopping", "27,168,177");
 console.log(app.projects);
 app.newTask(app.projects[0], "Pay rent", "$500");
 app.newTask(app.projects[0], "Dinner at Fongs", "5:00pm");

@@ -2,6 +2,7 @@
     box-sizing: border-box;
     --black: #111;
     --white: #ffffff;
+    font-family: 'Sriracha', cursive;
 }
 
 /* Elements  */
@@ -11,8 +12,14 @@ h1 {
     font-size: 2.6rem;
 }
 
+h2 {
+    text-align: center;
+    margin: 0;
+    padding: .5rem;
+}
+
 body {
-    background-color: var(--white);
+    background-color: rgb(209, 209, 209);
     color: var(--black);
     margin: 0;
     max-width: 320px;
@@ -20,7 +27,7 @@ body {
 
 main {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 main>* {
@@ -44,20 +51,40 @@ form {
     flex-direction: column;
 }
 
+textarea {
+    resize: vertical;
+}
+
 /* IDs */
+
+#projects::before {
+    content: '\203a\203a';
+    /* Unicode character for "carat" sign (>) */
+    color: #777;
+    transform: rotate(90deg);
+    transition: ease .5s transform;
+    left: 50%;
+    position: absolute;
+    width: 10px;
+    top: 75px;
+    margin-left: -5px;
+    font-size: 1.63rem
+}
+
+#projects.open::before {
+    transform: rotate(180deg)
+}
 
 #projects #tasks {}
 
-#projectList {
+#project-list,
+#task-list {
     display: flex;
     flex-direction: column;
+    margin: 0;
 }
 
 
-#taskList {
-    display: flex;
-    flex-direction: column;
-}
 
 /* Classes */
 
@@ -80,10 +107,10 @@ form {
 /* Modal form */
 .form-container {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 0 auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 88%;
 }
 
 /* Close button for Modal */
@@ -127,8 +154,8 @@ form {
 }
 
 .active-project {
-    font-size: 2em;
-    background-color: attr(color);
+    font-size: 1.7em;
+
 }
 
 .submit {

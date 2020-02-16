@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Sriracha&display=swap" rel="stylesheet">
   <title>Just To-Do It</title>
 </head>
 
@@ -49,21 +50,23 @@
   </div>
   <main>
 
-    <div id="projects">
+    <div id="projects" class="open">
       <form onsubmit="submitNewProject()" id="new-project">
-        <input type="text" placeholder="Enter project name" id="new-project-name" class="text-field">
+        <input type="text" placeholder="New Project" id="new-project-name" class="text-field">
         <button type="button" id="new-project-submit" class="submit"></button>
       </form>
       <div id="project-container">
+        <h2>Projects</h2>
         <ul id="project-list"></ul>
       </div>
     </div>
     <div id="tasks">
       <form id="new-task">
-        <input type="text" placeholder="Enter task name" id="new-task-name" class="text-field">
+        <input type="text" placeholder="New Task" id="new-task-name" class="text-field">
         <button type="button" id="new-task-submit" class="submit"></button>
       </form>
       <div id="task-container">
+        <h2>Tasks</h2>
         <ul id="task-list"></ul>
       </div>
     </div>
