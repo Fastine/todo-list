@@ -23,23 +23,22 @@ export const theDOM = (() => {
 
 
     const renderProjects = function () {
-        //Clear current projects
-        // removeProjects();
+        removeProjects();
         // Render each project in project space
+        console.log(app.projects)
         app.projects.forEach(function (item, index) {
-            const children = Array.from(projectList.children);
-            if (!children[index]) {
-                const projectCard = document.createElement("li");
-                projectCard.className = 'project-card';
-                projectCard.setAttribute("project-id", index)
-                projectCard.style.backgroundColor = `rgb(${item.color}, 55%)`
 
-                projectCard.innerHTML =
-                    `<span class="card-title noselect"><input type="checkbox" class="checkbox">${item.name}</span>
+            const projectCard = document.createElement("li");
+            projectCard.className = 'project-card';
+            projectCard.setAttribute("project-id", index)
+            projectCard.style.backgroundColor = `rgb(${item.color}, 55%)`
+
+            projectCard.innerHTML =
+                `<span class="card-title noselect"><input type="checkbox" class="checkbox">${item.name}</span>
                 <span class="card-description hidden">${item.description} <br>  <button class="btn edit">Edit</button> <button class="btn delete">Delete</button> </span>`;
 
-                projectList.append(projectCard);
-            }
+            projectList.append(projectCard);
+
 
         })
 
@@ -269,8 +268,8 @@ export const theDOM = (() => {
                     const project = app.projects[projectID];
 
                     //Remove from app reference data
-                    app.projects.splice[projectID, 1]
-                    e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+                    app.removeProject(projectID);
+                    renderProjects();
                     activateProject(0);
 
                 }
@@ -343,7 +342,7 @@ export const theDOM = (() => {
 
 app.newProject("Notes", "255,254,170", "This folder is for quick notes");
 console.log(app.projects[0]);
-app.newProject("Shopping", "27,168,177");
+app.newProject("Shopping", "27,168,177", "Groceries");
 console.log(app.projects);
 app.newTask(app.projects[0], "Pay rent", "$500");
 app.newTask(app.projects[0], "Dinner at Fongs", "5:00pm");

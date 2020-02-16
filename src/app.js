@@ -20,10 +20,17 @@ export const app = (() => {
     project.addTask(name);
   };
 
+  //Remove Project
+  const removeProject = function (index) {
+    projects.splice(index, 1)
+    console.log(projects)
+  }
+
   return {
     newTask,
     projects,
     newProject,
-    newTask
+    newTask,
+    removeProject
   };
 })();
