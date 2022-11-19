@@ -20,7 +20,7 @@
   "homepage": "https://github.com/Fastine/todo-list#readme",
   "devDependencies": {
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "npm-watch": "^0.6.0"
